@@ -1,11 +1,10 @@
 import requests
 
 
-def printData(countryData):
-    print(countryData)
+def print_data(country_data):
+    pass
 
-
-def fetchData(countryName):
+def fetch_data(countryName):
     return {}
 
 
@@ -18,12 +17,15 @@ def main():
 
     while 1:
         entry = input("Search for a country: ")
-        print("You searched for: " + entry)
+        print(f"You searched for: {entry}")
         print("Fetching...")
         print(" ")
-        countryData = fetchData(entry)
-        printData(countryData)
+        try:
+            country_data = fetch_data(entry)
+            print_data(country_data)
+        except Exception as e:
+            print(e.args[0])
         print(" ")
 
-
-main()
+if __name__ == "__main__":
+    main()

@@ -24,14 +24,16 @@ class TestFetchData:
                 "official": "Testopia"
             },
             "flag": "test",
-            "languages": ["Testian"]
+            "languages": {
+              "test": "Testian"
+            },
         })
         res = fetch_data("test")
 
         assert isinstance(res, dict)
         assert "name" in res and isinstance(res["name"], dict)
         assert "flag" in res
-        assert "languages" in res and isinstance(res["languages"], list)
+        assert "languages" in res and isinstance(res["languages"], dict)
 
     def test_raises_404_error(self, requests_mock):
         """Checks that fetch_data raises the correct error upon a 404 response."""

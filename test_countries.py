@@ -10,7 +10,7 @@ class TestFetchData:
 
     def test_calls_requests_get_method(self, requests_mock):
         """Tests that fetch_data makes exactly one GET request."""
-        requests_mock.get("https://restcountries.com/v3.1/name/test", status_code=200, json={})
+        requests_mock.get("https://restcountries.com/v3.1/name/test", status_code=200, json=[{}])
         fetch_data("test")
 
         assert requests_mock.called
@@ -19,7 +19,7 @@ class TestFetchData:
 
     def test_returns_a_valid_dict(self, requests_mock):
         """Checks that fetch_data returns a valid dict with relevant keys."""
-        requests_mock.get("https://restcountries.com/v3.1/name/test", status_code=200, json={
+        requests_mock.get("https://restcountries.com/v3.1/name/test", status_code=200, json=[{
             "name": {
                 "official": "Testopia"
             },
@@ -27,7 +27,7 @@ class TestFetchData:
             "languages": {
               "test": "Testian"
             },
-        })
+        }])
         res = fetch_data("test")
 
         assert isinstance(res, dict)

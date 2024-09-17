@@ -10,7 +10,15 @@ class TestFetchData:
 
     def test_calls_requests_get_method(self, requests_mock):
         """Tests that fetch_data makes exactly one GET request."""
-        requests_mock.get("https://restcountries.com/v3.1/name/test", status_code=200, json=[{}])
+        requests_mock.get("https://restcountries.com/v3.1/name/test", status_code=200, json=[{
+            "name": {
+                "official": "Testopia"
+            },
+            "flag": "test",
+            "languages": {
+              "test": "Testian"
+            },
+        }])
         fetch_data("test")
 
         assert requests_mock.called

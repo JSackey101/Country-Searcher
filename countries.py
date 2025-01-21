@@ -17,7 +17,13 @@ def print_data(country_data: dict):
 
 def fetch_data(country_name: str) -> dict:
     """Returns a dict of country data from the API."""
-    return {}
+    response = get(f"https://restcountries.com/v3.1/name/{country_name.lower()}")
+    
+    if response.status_code != 200:
+        raise ValueError(f"Error {response.status_code}: {response.reason} ")
+    data = response.json()[0]
+    return f"{data['name']['official']} {data['flag']}\nLanguages: {" ,".join(data['languages'].values())}"
+    
 
 
 def main():

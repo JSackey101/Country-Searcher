@@ -1,5 +1,6 @@
-from requests import get
+""" Terminal-based Country Searcher """
 
+from requests import get
 
 class APIError(Exception):
     """Describes an error triggered by a failing API call."""
@@ -17,7 +18,7 @@ def print_data(country_data: dict):
 
 def fetch_data(country_name: str) -> dict:
     """Returns a dict of country data from the API."""
-    response = get(f"https://restcountries.com/v3.1/name/{country_name.lower()}")
+    response = get(f"https://restcountries.com/v3.1/name/{country_name.lower()}", timeout=10)
     if response.status_code == 404:
         raise APIError(message="Unable to locate matching country.", code=404)
     elif response.status_code == 500:
@@ -47,7 +48,9 @@ def main():
         print(" ")
         try:
             country_data = fetch_data(entry)
-            print_data(f"{country_data['name']['official']} {country_data['flag']}\nLanguages: {" ,".join([country_data['languages']])}")
+            print_data(f"{country_data['name']['official']} {
+                country_data['flag']}\nLanguages: {
+                    ", ".join(list(country_data['languages'].values()))}")
         except APIError as e:
             print(e.message)
         print(" ")

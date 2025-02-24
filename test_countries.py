@@ -1,4 +1,4 @@
-# pylint: skip-file
+""" Tests for the Country Searcher. """
 
 import pytest
 
